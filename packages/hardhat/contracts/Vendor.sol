@@ -18,16 +18,14 @@ contract Vendor {
     function buyTokens() public payable {
         // To find the amount of tokens to dispersed by the amount of ETH the user has deposited:
         //   (100 / .01) = 10, therefore, 10 tokens is amountOfTokens 
-        uint256 amountOfTokens = (tokensPerEth / msg.value);
-        // To find the amount of ETH the user has deposited (msg.value)
-        uint256 amountOfEth = msg.value;
+        uint256 amountOfTokens = (tokensPerEth * msg.value) / 1 ether;
          
         // 1. purchase tokens (10 tokens = 0.1 ETH, 100 tokens = 1 ETH)
         // yourToken(address, uint256) 
         yourToken.transfer(msg.sender, amountOfTokens);
 
         // 2. emit event
-        emit BuyTokens(msg.sender, amountOfEth, amountOfTokens);
+        emit BuyTokens(msg.sender, msg.value, amountOfTokens);
     }
 
     // ToDo: create a withdraw() function that lets the owner withdraw ETH
