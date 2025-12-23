@@ -29,6 +29,15 @@ contract Vendor is Ownable {
     }
 
     // ToDo: create a withdraw() function that lets the owner withdraw ETH
+    function withdraw() public onlyOwner {
+        // Step 1) verify only the owner (fe address) is accessing this function
+        // redundant but extra safe
+        require(msg.sender == owner(), "You are not the owner"); 
+        // Step 2) send all of the ETH in the Vendor contract to the owner
+        uint256 amount = address(this).balance;
+        (bool success,) = payable(msg.sender).call{value: amount}(""); 
+        require(success, "Failed to send funds");
+    }
 
     // ToDo: create a sellTokens(uint256 _amount) function:
 }
