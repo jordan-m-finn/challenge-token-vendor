@@ -57,7 +57,7 @@ const TokenVendor: NextPage = () => {
             </div>
           </div>
           {/* Vendor Balances */}
-          {/* <hr className="w-full border-secondary my-3" />
+          <hr className="w-full border-secondary my-3" />
           <div>
             Vendor token balance:{" "}
             <div className="inline-flex items-center justify-center">
@@ -68,7 +68,7 @@ const TokenVendor: NextPage = () => {
           <div>
             Vendor eth balance: {Number(formatEther(vendorEthBalance?.value || 0n)).toFixed(4)}
             <span className="font-bold ml-1">ETH</span>
-          </div> */}
+          </div>
         </div>
 
         {/* Buy Tokens */}
