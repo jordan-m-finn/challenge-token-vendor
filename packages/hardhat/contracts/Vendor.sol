@@ -40,4 +40,13 @@ contract Vendor is Ownable {
     }
 
     // ToDo: create a sellTokens(uint256 _amount) function:
+    function sellTokens(uint256 _amount) private {
+        // Vendor uses the approval the user already gave
+        yourToken.transferFrom(msg.sender, address(this), _amount);
+
+        // Calculate and send ETH back
+        uint256 ethToReturn = (_amount * 1 ether) / tokensPerEth;
+        (bool success,) = payable(msg.sender).call{value: ethToReturn}("");
+        require(success, "Failed to send ETH");
+    }
 }
