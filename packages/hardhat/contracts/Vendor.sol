@@ -18,7 +18,7 @@ contract Vendor is Ownable {
     function buyTokens() public payable {
         // To find the amount of tokens to dispersed by the amount of ETH the user has deposited:
         //   (100 / .01) = 10, therefore, 10 tokens is amountOfTokens 
-        uint256 amountOfTokens = (tokensPerEth * msg.value) / 1 ether;
+        uint256 amountOfTokens = tokensPerEth * msg.value;
          
         // 1. purchase tokens (10 tokens = 0.1 ETH, 100 tokens = 1 ETH)
         // yourToken(address, uint256) 
@@ -45,7 +45,7 @@ contract Vendor is Ownable {
         yourToken.transferFrom(msg.sender, address(this), _amount);
 
         // Calculate and send ETH back
-        uint256 ethToReturn = (_amount * 1 ether) / tokensPerEth;
+        uint256 ethToReturn = _amount / tokensPerEth;
         (bool success,) = payable(msg.sender).call{value: ethToReturn}("");
         require(success, "Failed to send ETH");
     }
