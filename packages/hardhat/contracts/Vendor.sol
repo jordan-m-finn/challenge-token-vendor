@@ -6,7 +6,8 @@ import "./YourToken.sol";
 
 contract Vendor is Ownable {
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
-
+    event SellTokens(address seller, uint256 amountOfEth, uint256 amountOfTokens); 
+    
     YourToken public yourToken;
 
     constructor(address tokenAddress) Ownable(msg.sender) {
@@ -48,5 +49,7 @@ contract Vendor is Ownable {
         uint256 ethToReturn = _amount / tokensPerEth;
         (bool success,) = payable(msg.sender).call{value: ethToReturn}("");
         require(success, "Failed to send ETH");
+
+        emit SellTokens(msg.sender, ethToReturn, _amount);
     }
 }
