@@ -40,7 +40,7 @@ contract Vendor is Ownable {
     }
 
     // ToDo: create a sellTokens(uint256 _amount) function:
-    function sellTokens(uint256 _amount) private {
+    function sellTokens(uint256 _amount) public {
         // Vendor uses the approval the user already gave
         yourToken.transferFrom(msg.sender, address(this), _amount);
 
